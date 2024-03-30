@@ -1,0 +1,37 @@
+server:
+  port: 1111
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=java
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    changeLog: classpath:db/master.xml
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+management:
+  server:
+    port: 5660
+  endpoints:
+    port: 5660
+    web:
+      basePath: /
+      exposure:
+        include: "*"
+        exclude: metrics
+      path-mapping:
+        prometheus: metrics
+    metrics:
+      export:
+        prometheus:
+          enabled: true
