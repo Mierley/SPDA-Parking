@@ -9,4 +9,6 @@ public class ParkingPlaceDto {
     private Long id;
     private String tag;
     private Boolean isLock;
+    //todo
+    private String phoneNumber;
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+import ru.innopolis.spdaparking.dto.ApplicationDto;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.service.ParkingPlaceService;
 import ru.innopolis.spdaparking.service.ParkingService;
@@ -27,15 +28,16 @@ public class ParkingPlaceController {
         this.parkingService = parkingService;
     }
 
+    // todo добавить пост метод, принимающий номер телефона,
     @ApiOperation("Получение списка парковочных мест")
     @GetMapping("places")
     public List<ParkingPlaceDto> getApplicationStatistics() {
         return parkingPlaceService.getAll();
     }
 
-    @ApiOperation("Подтвреждение номер")
+    @ApiOperation("Занять парковочное место по телефону")
     @PostMapping("take-place")
-    public String takePlace(@RequestBody String phoneNumber) {
-        return parkingService. confirmPlaceByPhoneNumber(phoneNumber);
+    public String takePlace(@RequestBody ApplicationDto applicationDto) {
+        return parkingService.takePlace(applicationDto);
     }
 }
