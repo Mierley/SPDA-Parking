@@ -1,0 +1,22 @@
+services:
+  backend:
+    image: habur331/spda-parking:0.0.1
+    environment:
+      POSTGRES_HOST: postgres:5432
+    ports:
+      - 1111:1111
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
