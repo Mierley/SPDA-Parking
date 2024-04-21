@@ -4,21 +4,30 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="16032024" author="habur331">
-        <createTable tableName="user">
+    <!-- Create the parking_place table -->
+    <changeSet id="create-parking-place-table" author="yourname">
+        <createTable tableName="parking_place">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="username" type="varchar"/>
-            <column name="password" type="varchar"/>
+            <column name="tag" type="varchar"/>
+            <column name="is_lock" type="boolean"/>
         </createTable>
-        <createTable tableName="lesson">
+    </changeSet>
+
+    <!-- Create the application table -->
+    <changeSet id="create-application-table" author="yourname">
+        <createTable tableName="application">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar"/>
-            <column name="user_id" type="bigint" >
-                <constraints references="user(id)" foreignKeyName="fk_user_id" nullable="false"/>
+            <column name="driver_name" type="varchar"/>
+            <column name="car_details" type="varchar"/>
+            <column name="phone_number" type="varchar"/>
+            <column name="date_from" type="datetime"/>
+            <column name="date_to" type="datetime"/>
+            <column name="parking_place_id" type="bigint">
+                <constraints references="parking_place(id)" foreignKeyName="fk_parking_place_id" nullable="true"/>
             </column>
         </createTable>
     </changeSet>
