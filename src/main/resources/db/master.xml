@@ -3,9 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-
-    <!-- Create the parking_place table -->
-    <changeSet id="create-parking-place-table" author="yourname">
+    
+    <changeSet id="create-parking-place-table" author="mierley">
         <createTable tableName="parking_place">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -14,9 +13,8 @@
             <column name="is_lock" type="boolean"/>
         </createTable>
     </changeSet>
-
-    <!-- Create the application table -->
-    <changeSet id="create-application-table" author="yourname">
+    
+    <changeSet id="create-application-table" author="mierley">
         <createTable tableName="application">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -31,4 +29,56 @@
             </column>
         </createTable>
     </changeSet>
+
+    <changeSet id="insert-initial-parking-places" author="habur331">
+        <sql dbms="postgresql">
+            INSERT INTO parking_place (tag, is_lock) VALUES
+                                                         ('A1', false),
+                                                         ('A2', false),
+                                                         ('A3', false),
+                                                         ('A4', false),
+                                                         ('A5', false),
+                                                         ('B1', false),
+                                                         ('B2', false),
+                                                         ('B3', false),
+                                                         ('B4', false),
+                                                         ('B5', false),
+                                                         ('C1', false),
+                                                         ('C2', false),
+                                                         ('C3', false),
+                                                         ('C4', false),
+                                                         ('C5', false),
+                                                         ('D1', false),
+                                                         ('D2', false),
+                                                         ('D3', false),
+                                                         ('D4', false),
+                                                         ('D5', false),
+                                                         ('E1', false),
+                                                         ('E2', false),
+                                                         ('E3', false),
+                                                         ('E4', false),
+                                                         ('E5', false),
+                                                         ('F1', false),
+                                                         ('F2', false),
+                                                         ('F3', false),
+                                                         ('F4', false),
+                                                         ('F5', false),
+                                                         ('G1', false),
+                                                         ('G2', false),
+                                                         ('G3', false),
+                                                         ('G4', false),
+                                                         ('G5', false),
+                                                         ('H1', false),
+                                                         ('H2', false),
+                                                         ('H3', false),
+                                                         ('H4', false),
+                                                         ('H5', false),
+                                                         ('I1', false),
+                                                         ('I2', false),
+                                                         ('I3', false),
+                                                         ('I4', false),
+                                                         ('I5', false);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
