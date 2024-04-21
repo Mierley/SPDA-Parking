@@ -77,7 +77,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>habur331/spda-parking:${project.version}</name>
+                        <name>habur331/spda-parking</name>
+                        <tags>
+                            <value>habur331/spda-parking:${project.version}</value>
+                            <value>habur331/spda-parking:latest</value>
+                        </tags>
                     </image>
                     <docker>
                         <publishRegistry>
