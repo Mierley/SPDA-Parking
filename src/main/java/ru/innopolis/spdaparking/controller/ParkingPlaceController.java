@@ -28,16 +28,27 @@ public class ParkingPlaceController {
         this.parkingService = parkingService;
     }
 
-    // todo добавить пост метод, принимающий номер телефона,
     @ApiOperation("Получение списка парковочных мест")
-    @GetMapping("places")
-    public List<ParkingPlaceDto> getApplicationStatistics() {
-        return parkingPlaceService.getAll();
+    @GetMapping("places/{page_number}")
+    public List<ParkingPlaceDto> getParkingPlaces(@PathVariable("page_number") int page_number) {
+        return parkingPlaceService.getAll(page_number);
+    }
+
+    @ApiOperation("Получение списка парковочных мест по номеру телефона")
+    @PostMapping("places/{page_number}")
+    public List<ParkingPlaceDto> getParkingPlacesByPhoneNumber(@PathVariable("page_number") int page_number, @RequestBody String phoneNumber) {
+        return parkingService.getAll(page_number, phoneNumber);
     }
 
     @ApiOperation("Занять парковочное место по телефону")
     @PostMapping("take-place")
     public String takePlace(@RequestBody ApplicationDto applicationDto) {
         return parkingService.takePlace(applicationDto);
+    }
+
+    @ApiOperation("Освободить парковочное место по телефону")
+    @PostMapping("free-place/{place_id}")
+    public String freePlace(@PathVariable("place_id") Long place_id, @RequestBody String phoneNumber) {
+        return parkingService.freePlace(place_id, phoneNumber);
     }
 }

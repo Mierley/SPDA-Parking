@@ -25,12 +25,16 @@ public class ApplicationService {
     }
 
     public List<ApplicationDto> getAll(StatisticsFilter filter) {
+        if(filter.getPhoneNumber() == null)
+            throw new IllegalArgumentException("Для получения статистики необходимо указывать номер телефона.");
+
         List<Application> applications = applicationRepository.findAll();
 
         return applications.stream()
                 .filter(application -> isWithinDateRange(application, filter.getFromDate(), filter.getToDate()))
                 .filter(application -> filter.getDriverName() == null || application.getDriverName().toLowerCase().contains(filter.getDriverName().toLowerCase()))
                 .filter(application -> filter.getCarDetails() == null || application.getCarDetails().toLowerCase().contains(filter.getCarDetails().toLowerCase()))
+                .filter(application -> filter.getPhoneNumber() == null || application.getPhoneNumber().toLowerCase().equals(filter.getPhoneNumber().toLowerCase()))
                 .map(applicationMapper::mapToDto)
                 .collect(Collectors.toList());
     }
