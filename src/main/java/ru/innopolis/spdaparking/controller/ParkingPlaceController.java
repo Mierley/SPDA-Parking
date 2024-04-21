@@ -10,7 +10,6 @@ import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.service.ParkingPlaceService;
 import ru.innopolis.spdaparking.service.ParkingService;
 
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -29,15 +28,15 @@ public class ParkingPlaceController {
     }
 
     @ApiOperation("Получение списка парковочных мест")
-    @GetMapping("places/{page_number}")
-    public List<ParkingPlaceDto> getParkingPlaces(@PathVariable("page_number") int page_number) {
-        return parkingPlaceService.getAll(page_number);
+    @GetMapping("places")
+    public List<ParkingPlaceDto> getParkingPlaces(@RequestParam("page") int page) {
+        return parkingPlaceService.getAll(page);
     }
 
     @ApiOperation("Получение списка парковочных мест по номеру телефона")
-    @PostMapping("places/{page_number}")
-    public List<ParkingPlaceDto> getParkingPlacesByPhoneNumber(@PathVariable("page_number") int page_number, @RequestBody String phoneNumber) {
-        return parkingService.getAll(page_number, phoneNumber);
+    @PostMapping("places")
+    public List<ParkingPlaceDto> getParkingPlacesByPhoneNumber(@RequestParam("page") int page, @RequestBody String phoneNumber) {
+        return parkingService.getAll(page, phoneNumber);
     }
 
     @ApiOperation("Занять парковочное место по телефону")
