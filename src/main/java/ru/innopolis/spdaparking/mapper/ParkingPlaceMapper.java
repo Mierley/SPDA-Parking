@@ -1,10 +1,11 @@
 package ru.innopolis.spdaparking.mapper;
 
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.entity.ParkingPlace;
 
-@Mapper
+@Component
 public class ParkingPlaceMapper {
     public ParkingPlace mapToEntity(ParkingPlaceDto dto) {
         ParkingPlace parkingPlace = new ParkingPlace();
