@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.innopolis</groupId>
     <artifactId>SPDA-Parking</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>SPDA-Parking</name>
     <description>SPDA-Parking</description>
     <properties>
@@ -75,6 +75,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>habur331/spda-parking</name>
+                        <tags>
+                            <value>habur331/spda-parking:${project.version}</value>
+                            <value>habur331/spda-parking:latest</value>
+                        </tags>
+                    </image>
+                    <docker>
+                        <publishRegistry>
+                            <username>${docker.publishRegistry.username}</username>
+                            <password>${docker.publishRegistry.password}</password>
+                            <url>hub.docker.com</url>
+                        </publishRegistry>
+                    </docker>
+                </configuration>
             </plugin>
         </plugins>
     </build>
