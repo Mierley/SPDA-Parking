@@ -1,6 +1,7 @@
 package ru.innopolis.spdaparking.service;
 
 import org.springframework.stereotype.Service;
+import ru.innopolis.spdaparking.dto.PaginationResponse;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.entity.ParkingPlace;
 import ru.innopolis.spdaparking.mapper.ParkingPlaceMapper;
@@ -20,7 +21,7 @@ public class ParkingPlaceService {
         this.parkingPlaceMapper = parkingPlaceMapper;
     }
 
-    public List<ParkingPlaceDto> getAll(int pageNumber) {
+    public PaginationResponse<ParkingPlaceDto> getAll(int pageNumber) {
         int pageSize = 20; // Размер страницы
 
         List<ParkingPlace> parkingPlaces = parkingRepository.findAll();
@@ -34,7 +35,7 @@ public class ParkingPlaceService {
         // Получаем подсписок элементов, соответствующих запрошенной странице
         List<ParkingPlace> pageParkingPlaces = parkingPlaces.stream()
                 .sorted(Comparator.comparing(ParkingPlace::getId))
-                .collect(Collectors.toList())
+                .toList()
                 .subList(startIndex, endIndex);
 
         // Преобразуем элементы подсписка в DTO
@@ -42,6 +43,6 @@ public class ParkingPlaceService {
                 .map(parkingPlaceMapper::mapToDto)
                 .collect(Collectors.toList());
 
-        return collection;
+        return PaginationResponse.of(collection, parkingPlaces.size(), pageNumber, pageSize);
     }
 }

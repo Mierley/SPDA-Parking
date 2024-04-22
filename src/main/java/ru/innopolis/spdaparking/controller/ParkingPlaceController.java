@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import ru.innopolis.spdaparking.dto.ApplicationDto;
+import ru.innopolis.spdaparking.dto.PaginationResponse;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.service.ParkingPlaceService;
 import ru.innopolis.spdaparking.service.ParkingService;
@@ -29,13 +30,13 @@ public class ParkingPlaceController {
 
     @ApiOperation("Получение списка парковочных мест")
     @GetMapping("places")
-    public List<ParkingPlaceDto> getParkingPlaces(@RequestParam("page") int page) {
+    public PaginationResponse<ParkingPlaceDto> getParkingPlaces(@RequestParam("page") int page) {
         return parkingPlaceService.getAll(page);
     }
 
     @ApiOperation("Получение списка парковочных мест по номеру телефона")
     @PostMapping("places")
-    public List<ParkingPlaceDto> getParkingPlacesByPhoneNumber(@RequestParam("page") int page, @RequestBody String phoneNumber) {
+    public PaginationResponse<ParkingPlaceDto> getParkingPlacesByPhoneNumber(@RequestParam("page") int page, @RequestBody String phoneNumber) {
         return parkingService.getAll(page, phoneNumber);
     }
 

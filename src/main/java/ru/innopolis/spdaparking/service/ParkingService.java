@@ -2,6 +2,7 @@ package ru.innopolis.spdaparking.service;
 
 import org.springframework.stereotype.Service;
 import ru.innopolis.spdaparking.dto.ApplicationDto;
+import ru.innopolis.spdaparking.dto.PaginationResponse;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
 import ru.innopolis.spdaparking.entity.Application;
 import ru.innopolis.spdaparking.entity.ParkingPlace;
@@ -92,10 +93,10 @@ public class ParkingService {
     }
 
 
-    public List<ParkingPlaceDto> getAll(int page_number, String phoneNumber) {
+    public PaginationResponse<ParkingPlaceDto> getAll(int pageNumber, String phoneNumber) {
         // Определяем количество элементов на странице и номер первого элемента для пагинации
         int pageSize = 20; // Здесь можно указать желаемый размер страницы
-        int firstElementIndex = (page_number - 1) * pageSize;
+        int firstElementIndex = (pageNumber - 1) * pageSize;
 
         List<Application> openApplications = applicationRepository.findAll().stream()
                 .filter(app -> app.getDateTo() == null && app.getPhoneNumber().equals(phoneNumber))
@@ -126,7 +127,7 @@ public class ParkingService {
                 .map(parkingPlaceMapper::mapToDto)
                 .collect(Collectors.toList());
 
-        return collection;
+        return PaginationResponse.of(collection,allParkingPlaces.size(), pageNumber, pageSize);
     }
 
 
