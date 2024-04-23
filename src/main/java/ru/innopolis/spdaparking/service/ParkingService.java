@@ -107,12 +107,7 @@ public class ParkingService {
                 .collect(Collectors.toList());
 
         // Получаем все парковочные места
-        List<ParkingPlace> allParkingPlaces = parkingPlaceRepository.findAll();
-
-        // Фильтруем парковочные места по найденным id
-        List<ParkingPlace> filteredParkingPlaces = allParkingPlaces.stream()
-                .filter(place -> placesID.contains(place.getId()))
-                .collect(Collectors.toList());
+        List<ParkingPlace> filteredParkingPlaces = new ArrayList<>(parkingPlaceRepository.findAll());
 
         // Сортируем парковочные места по какому-либо критерию (например, по идентификатору)
         filteredParkingPlaces.sort(Comparator.comparing(ParkingPlace::getId));
@@ -123,7 +118,16 @@ public class ParkingService {
 
         // Преобразуем парковочные места в DTO
         List<ParkingPlaceDto> collection = pageParkingPlaces.stream()
-                .map(parkingPlaceMapper::mapToDto)
+                .map(parkingPlace -> {
+                    ParkingPlaceDto dto = parkingPlaceMapper.mapToDto(parkingPlace);
+                    // Находим соответствующую заявку в списке applications
+                    Optional<Application> matchingApplication = openApplications.stream()
+                            .filter(app -> Objects.equals(app.getParkingPlace().getId(), parkingPlace.getId()))
+                            .findFirst();
+                    // Если заявка найдена, устанавливаем номер телефона
+                    matchingApplication.ifPresent(app -> dto.setPhoneNumber(app.getPhoneNumber()));
+                    return dto;
+                })
                 .collect(Collectors.toList());
 
         return collection;
