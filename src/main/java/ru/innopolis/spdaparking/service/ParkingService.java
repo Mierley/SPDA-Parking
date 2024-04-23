@@ -102,20 +102,15 @@ public class ParkingService {
                 .filter(app -> app.getDateTo() == null && app.getPhoneNumber().equals(phoneNumber))
                 .collect(Collectors.toList());
 
-        // Получаем id парковочных мест из найденных заявок
-        List<Long> placesID = openApplications.stream()
-                .map(app -> app.getParkingPlace().getId())
-                .collect(Collectors.toList());
+        List<ParkingPlace> allParkingPlaces = new ArrayList<>(parkingPlaceRepository.findAll());;
 
-        // Получаем все парковочные места
-        List<ParkingPlace> filteredParkingPlaces = new ArrayList<>(parkingPlaceRepository.findAll());
 
         // Сортируем парковочные места по какому-либо критерию (например, по идентификатору)
-        filteredParkingPlaces.sort(Comparator.comparing(ParkingPlace::getId));
+        allParkingPlaces.sort(Comparator.comparing(ParkingPlace::getId));
 
         // Выполняем пагинацию
-        int endIndex = Math.min(firstElementIndex + pageSize, filteredParkingPlaces.size());
-        List<ParkingPlace> pageParkingPlaces = filteredParkingPlaces.subList(firstElementIndex, endIndex);
+        int endIndex = Math.min(firstElementIndex + pageSize, allParkingPlaces.size());
+        List<ParkingPlace> pageParkingPlaces = allParkingPlaces.subList(firstElementIndex, endIndex);
 
         // Преобразуем парковочные места в DTO
         List<ParkingPlaceDto> collection = pageParkingPlaces.stream()
