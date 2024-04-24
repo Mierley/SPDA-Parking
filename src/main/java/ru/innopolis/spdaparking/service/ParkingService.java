@@ -36,7 +36,7 @@ public class ParkingService {
         var applications = applicationRepository.findAll().stream()
                 .filter(app -> Objects.equals(app.getPhoneNumber(), applicationDTO.getPhoneNumber()) && app.getDateTo() == null).toList();
 
-        if (applications.size() > 3) {
+        if (applications.size() >= 3) {
             //todo нельзя занять больше 3х мест за раз
             return new Response("Нельзя занять больше 3х мест но номер телефона" + applicationDTO.getPhoneNumber() + " за раз.", 403);
         }
