@@ -43,6 +43,6 @@ public class ParkingPlaceService {
                 .map(parkingPlaceMapper::mapToDto)
                 .collect(Collectors.toList());
 
-        return PaginationResponse.of(collection, parkingPlaces.size(), pageNumber, pageSize);
+        return PaginationResponse.of(collection, parkingPlaces.size(), pageNumber, pageSize, parkingPlaces.stream().filter(p -> !p.getIsLock()).toList().size());
     }
 }

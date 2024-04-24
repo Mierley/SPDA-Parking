@@ -31,11 +31,4 @@ public class ApplicationController {
     public List<ApplicationDto> getApplicationStatistics(@RequestBody StatisticsFilter filter) {
         return applicationService.getAll(filter);
     }
-
-    @ApiOperation("Занять место водителем")
-    @PostMapping("take-place")
-    public void takePlace(@RequestBody ApplicationDto applicationDto) {
-
-        applicationService.createApplication(applicationDto);
-    }
 }

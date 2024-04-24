@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.innopolis.spdaparking.dto.ApplicationDto;
 import ru.innopolis.spdaparking.dto.PaginationResponse;
 import ru.innopolis.spdaparking.dto.ParkingPlaceDto;
+import ru.innopolis.spdaparking.responces.Response;
 import ru.innopolis.spdaparking.service.ParkingPlaceService;
 import ru.innopolis.spdaparking.service.ParkingService;
 
@@ -42,13 +43,13 @@ public class ParkingPlaceController {
 
     @ApiOperation("Занять парковочное место по телефону")
     @PostMapping("take-place")
-    public String takePlace(@RequestBody ApplicationDto applicationDto) {
+    public Response takePlace(@RequestBody ApplicationDto applicationDto) {
         return parkingService.takePlace(applicationDto);
     }
 
     @ApiOperation("Освободить парковочное место по телефону")
     @PostMapping("free-place/{place_id}")
-    public String freePlace(@PathVariable("place_id") Long place_id, @RequestBody String phoneNumber) {
+    public Response freePlace(@PathVariable("place_id") Long place_id, @RequestBody String phoneNumber) {
         return parkingService.freePlace(place_id, phoneNumber);
     }
 }
