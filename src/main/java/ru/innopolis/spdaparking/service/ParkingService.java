@@ -1,5 +1,8 @@
 package ru.innopolis.spdaparking.service;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.innopolis.spdaparking.dto.ApplicationDto;
 import ru.innopolis.spdaparking.dto.PaginationResponse;
@@ -8,6 +11,7 @@ import ru.innopolis.spdaparking.entity.Application;
 import ru.innopolis.spdaparking.entity.ParkingPlace;
 import ru.innopolis.spdaparking.mapper.ApplicationMapper;
 import ru.innopolis.spdaparking.mapper.ParkingPlaceMapper;
+import ru.innopolis.spdaparking.metrics.counter.ParkingPlaceOccupiedTimesCounter;
 import ru.innopolis.spdaparking.repository.ApplicationRepository;
 import ru.innopolis.spdaparking.repository.ParkingPlaceRepository;
 import ru.innopolis.spdaparking.responces.Response;
@@ -16,19 +20,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class ParkingService {
 
     private final ApplicationRepository applicationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
     private final ApplicationMapper applicationMapper;
     private final ParkingPlaceMapper parkingPlaceMapper;
-
-    public ParkingService(ApplicationRepository applicationRepository, ParkingPlaceRepository parkingRepository, ApplicationMapper applicationMapper, ParkingPlaceMapper parkingPlaceMapper) {
-        this.applicationRepository = applicationRepository;
-        this.parkingPlaceRepository = parkingRepository;
-        this.applicationMapper = applicationMapper;
-        this.parkingPlaceMapper = parkingPlaceMapper;
-    }
+    private final ParkingPlaceOccupiedTimesCounter parkingPlaceOccupiedTimesCounter;
 
     public Response takePlace(ApplicationDto applicationDTO) {
         // Получаем парковочное место по его ID
@@ -55,6 +54,7 @@ public class ParkingService {
             applicationRepository.save(application);
 
             // Возвращаем строковое представление заблокированного парковочного места
+            parkingPlaceOccupiedTimesCounter.inc(String.valueOf(parkingPlace.getTag()));
             return new Response( "Парковочное место " + parkingPlace.getTag() + " успешно забронировано.", 200);
         } else {
             // Возвращаем сообщение об ошибке, если парковочное место не найдено
