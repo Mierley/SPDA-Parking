@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost:5432}/postgres?currentSchema=java
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost:5432}/${POSTGRES_DB:postgres}?currentSchema=${POSTGRES_SCHEMA:parking}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASS:postgres}
     driverClassName: org.postgresql.Driver
   liquibase:
     enabled: true
