@@ -15,4 +15,5 @@ public class ApplicationDto {
     private Date dateFrom;
     private Date dateTo;
     private Long parkingPlaceId;
+    private String parkingPlaceTag;
 }

@@ -36,6 +36,7 @@ public class ApplicationMapper {
                 .dateFrom(application.getDateFrom())
                 .dateTo(application.getDateTo())
                 .parkingPlaceId(application.getParkingPlace() != null ? application.getParkingPlace().getId() : null)
+                .parkingPlaceTag(application.getParkingPlace() != null ? application.getParkingPlace().getTag() : null)
                 .build();
     }
 }
