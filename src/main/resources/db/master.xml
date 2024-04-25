@@ -100,5 +100,85 @@
                                                          ('L5', false);
         </sql>
     </changeSet>
+    <changeSet id="insert-initial-application" author="mierley">
+        <sql dbms="postgresql">
+            update java.application
+            set date_to = '2024-05-25 08:00:00'
+            where date_to is null;
+
+
+            update java.parking_place
+            set is_lock = false
+            where is_lock = true;
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-03-26 09:15:00', '2024-03-26 11:45:00', 32);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-02-26 09:15:00', '2024-02-26 11:45:00', 31);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-03-21 09:15:00', '2024-03-21 11:45:00', 11);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-01-26 09:15:00', '2024-01-26 11:45:00', 3);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-03-26 09:15:00', '2024-03-26 11:45:00', 2);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-03-26 09:15:00', '2024-03-26 11:45:00', 52);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-02-26 09:15:00', '2024-02-26 11:45:00', 11);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-01-01 06:15:00', '2024-01-01 11:45:00', 16);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-06-16 09:15:00', '2024-06-16 19:45:00', 23);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+71234567890', '2024-02-06 09:15:00', '2024-02-06 11:45:00', 29);
+
+
+
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-01-01 06:15:00', NULL, 16);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-06-16 09:15:00', NULL, 23);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-02-06 09:15:00', NULL, 29);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-01-01 06:15:00', NULL, 6);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-06-16 09:15:00', NULL, 13);
+
+            INSERT INTO java.application
+            (driver_name, car_details, phone_number, date_from, date_to, parking_place_id)
+            VALUES('Андрианов Андрей Викторович', 'Honda Civic XYZ456', '+79990001111', '2024-02-06 09:15:00', NULL, 59);
+
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>
