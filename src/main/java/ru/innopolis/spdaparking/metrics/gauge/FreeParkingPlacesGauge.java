@@ -11,15 +11,13 @@ import ru.innopolis.spdaparking.repository.ParkingPlaceRepository;
 @Service
 public class FreeParkingPlacesGauge
 {
-    private final MeterRegistry meterRegistry;
-    private final ParkingPlaceRepository parkingRepository;
+    private static final String gaugeName = "free_parking_places";
+
     private final Gauge gauge;
 
     public FreeParkingPlacesGauge(MeterRegistry meterRegistry, ParkingPlaceRepository parkingRepository)
     {
-        this.meterRegistry = meterRegistry;
-        this.parkingRepository = parkingRepository;
-        gauge = Gauge.builder("free_parking_places", () -> parkingRepository.count(
+        gauge = Gauge.builder(gaugeName, () -> parkingRepository.count(
                         Example.of(ParkingPlace.builder().isLock(false).build())))
                 .register(meterRegistry);
     }
