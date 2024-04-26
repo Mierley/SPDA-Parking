@@ -8,6 +8,6 @@ spec:
     app: frontend
   ports:
     - port: 5678
-      targetPort: 1111
+      targetPort: 3000
   type: ClusterIP
 

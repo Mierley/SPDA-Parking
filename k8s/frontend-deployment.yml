@@ -20,12 +20,10 @@ spec:
         image: ramprin/spda:latest
         imagePullPolicy: Always
         env:
-        - name: HOST
-          value: "10.233.29.51"
-        - name: PORT
-          value: "1111"
+        - name: host
+          value: "10.233.29.51:5678"
         ports:
-        - containerPort: 1111
+        - containerPort: 3000
         resources:
           limits:
             cpu: "1"
