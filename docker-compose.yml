@@ -7,10 +7,15 @@ services:
       - 1111:1111
     depends_on:
       - postgres
+    logging:
+      driver: "json-file"
+      options:
+        tag: "{{ .Name }}"
+        max-size: "100m"
+        max-file: "5"
 
   postgres:
     image: postgres
-    container_name: postgres
     restart: always
     environment:
       POSTGRES_DB: postgres
@@ -20,3 +25,43 @@ services:
       - 5432:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  grafana:
+    build: './docker-compose/config/grafana'
+    ports:
+      - 3000:3000
+    volumes:
+      - ./docker-compose/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./docker-compose/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./docker-compose/prometheus:/prometheus
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  
+  promtail:
+    image: grafana/promtail:2.9.2
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log:/var/log:ro
+      - ./docker-compose/config/promtail.yml:/etc/promtail/config.yml
+    command:
+      - "--config.file=/etc/promtail/config.yml"
+      - "--config.expand-env=true"
+    ports:
+      - "9080:9080"
+    
+  loki:
+    image: grafana/loki:2.9.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/config.yml
+    volumes:
+      - ./docker-compose/config/loki.yml:/etc/loki/config.yml
