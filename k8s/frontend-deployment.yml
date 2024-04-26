@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: parking
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: ramprin/spda:latest
+        imagePullPolicy: Always
+        env:
+        - name: HOST
+          value: "10.233.29.51"
+        - name: PORT
+          value: "1111"
+        ports:
+        - containerPort: 1111
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2000Mi
+          requests:
+            cpu: "0.2"
+            memory: 1500Mi
+

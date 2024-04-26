@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: habur331/spda-parking:0.0.2
+        image: habur331/spda-parking:latest
         imagePullPolicy: Always
         env:
         - name: POSTGRES_HOST
@@ -34,7 +34,7 @@ spec:
         - containerPort: 1111
         resources:
           limits:
-            cpu: "2"
+            cpu: "1"
             memory: 2000Mi
           requests:
             cpu: "0.2"
