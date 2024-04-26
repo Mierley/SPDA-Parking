@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: habur331/spda-parking:latest
+        image: habur331/spda-parking:0.0.2
         imagePullPolicy: Always
         env:
         - name: POSTGRES_HOST

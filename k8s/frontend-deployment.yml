@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: host
-          value: "10.233.29.51:5678"
+          value: "spda-parking.ru:80/api"
         ports:
         - containerPort: 3000
         resources:
