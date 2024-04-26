@@ -39,17 +39,6 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public ApplicationDto createApplication(ApplicationDto applicationDto) {
-        // Преобразование ApplicationDto в объект Application
-        Application application = applicationMapper.mapToEntity(applicationDto);
-
-        // Сохранение созданной заявки в репозитории
-        application = applicationRepository.save(application);
-
-        // Преобразование сохраненной заявки обратно в объект DTO и возврат его
-        return applicationMapper.mapToDto(application);
-    }
-
     private boolean isWithinDateRange(Application application, Date fromDate, Date toDate) {
         return (fromDate == null || application.getDateFrom().after(fromDate)) &&
                 (toDate == null || application.getDateTo() == null || application.getDateTo().before(toDate));
