@@ -1,1 +1,1 @@
-CREATE SCHEMA java;
+CREATE SCHEMA parking;

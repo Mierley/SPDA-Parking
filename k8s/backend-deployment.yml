@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: parking
+  labels:
+    app: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: habur331/spda-parking:0.0.2
+        imagePullPolicy: Always
+        env:
+        - name: POSTGRES_HOST
+          value: "10.0.10.6:5432"
+        - name: POSTGRES_DB
+          value: "parking"
+        - name: POSTGRES_SCHEMA
+          value: "parking"
+        - name: POSTGRES_USER
+          value: "parking"
+        - name: POSTGRES_PASS
+          value: "Lfnjxyjcsrm.hyj!!%&"
+        ports:
+        - containerPort: 1111
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2000Mi
+          requests:
+            cpu: "0.2"
+            memory: 1500Mi
+
