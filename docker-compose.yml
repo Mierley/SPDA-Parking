@@ -1,4 +1,11 @@
 services:
+  frontend:
+    image: ramprin/spda:latest
+    environment:
+      host: 127.0.0.1:1111
+    ports:
+      - 2222:3000
+  
   backend:
     image: habur331/spda-parking:latest
     environment:
